@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bouns.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahhammad <ahhammad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/22 17:08:24 by ahhammad          #+#    #+#             */
-/*   Updated: 2025/10/22 17:08:24 by ahhammad         ###   ########.fr       */
+/*   Created: 2025/10/23 14:09:25 by ahhammad          #+#    #+#             */
+/*   Updated: 2025/10/23 14:09:25 by ahhammad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*cpye_to_nl(char *p)
 		line[i] = p[i];
 		i++;
 	}
-	if (p[i] == '\n' && p[i] != '\n')
+	if (p[i] == '\n' && p[i - 1] != '\n')
 	{
 		line[i] = '\n';
 		i++;
@@ -82,40 +82,29 @@ char	*cpye_to_nl(char *p)
 	return (line);
 }
 
-char *free_buf(char *p, int fd)
-{
-	if(read(fd, 0, 0) < 0)
-	{
-		p[0] = '\0';
-	}
-	return (NULL);
-}
-
 char	*get_next_line(int fd)
 {
-	static char		p[BUFFER_SIZE + 1];
+	static char		p[1024][BUFFER_SIZE + 1];
 	char			*ptr;
-	static int		read_f;
+	int		read_f;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (free_buf(p, fd));
-	if (!p[0])
-		read_f = read(fd, p, BUFFER_SIZE);
-	if (read_f <= 0)
+	read_f = 0;
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	p[read_f] = '\0';
-	ptr = cpye_to_nl(p);
+	if (!p[fd][0])
+		read_f = read(fd, p[fd], BUFFER_SIZE);
+	p[fd][read_f] = '\0';
+	ptr = cpye_to_nl(p[fd]);
 	while (ptr != NULL)
 	{
-		if (has_nl(p))
+		if (has_nl(p[fd]))
 			break ;
-		read_f = read(fd, p, BUFFER_SIZE);
-		p[read_f] = '\0';
+		read_f = read(fd, p[fd], BUFFER_SIZE);
+		p[fd][read_f] = '\0';
 		if (read_f <= 0)
 			break ;
-		ptr = ft_strjoin(ptr, p);
+		ptr = ft_strjoin(ptr, p[fd]);
 	}
-	if(ptr != NULL)
-		new_str(p);
+	new_str(p[fd]);
 	return (ptr);
 }

@@ -1,20 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+        
-	+:+     */
-/*   By: ahhammad <ahhammad@student.42.fr>          +#+  +:+      
-	+#+        */
-/*                                                +#+#+#+#+#+  
-	+#+           */
-/*   Created: 2025/09/24 17:19:11 by ahhammad          #+#    #+#             */
-/*   Updated: 2025/09/24 17:19:12 by ahhammad         ###   ########.fr       */
+/*   get_next_line_bouns.h                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahhammad <ahhammad@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/23 14:09:12 by ahhammad          #+#    #+#             */
+/*   Updated: 2025/10/23 14:09:12 by ahhammad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -35,5 +32,4 @@ char	*get_next_line(int fd);
 char	*cpye_to_nl(char *p);
 bool	has_nl(char *p);
 int		len_etb(char *p);
-char *free_buf(char *p, int fd);
 #endif
