@@ -82,12 +82,9 @@ char	*cpye_to_nl(char *p)
 	return (line);
 }
 
-char *free_buf(char *p, int fd)
+char *free_buf(char *p)
 {
-	if(read(fd, 0, 0) < 0)
-	{
-		p[0] = '\0';
-	}
+	p[0] = '\0';
 	return (NULL);
 }
 
@@ -98,11 +95,11 @@ char	*get_next_line(int fd)
 	static int		read_f;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (free_buf(p, fd));
+		return (free_buf(p));
 	if (!p[0])
 		read_f = read(fd, p, BUFFER_SIZE);
 	if (read_f <= 0)
-		return (NULL);
+		return (free_buf(p));
 	p[read_f] = '\0';
 	ptr = cpye_to_nl(p);
 	while (ptr != NULL)

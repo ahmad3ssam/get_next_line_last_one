@@ -35,5 +35,5 @@ char	*get_next_line(int fd);
 char	*cpye_to_nl(char *p);
 bool	has_nl(char *p);
 int		len_etb(char *p);
-char *free_buf(char *p, int fd);
+char *free_buf(char *p);
 #endif
